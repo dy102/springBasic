@@ -16,16 +16,19 @@ public class AppConfig {
 
     @Bean//spring container에 등록됨
     public MemberService memberService() { // MemberService 역할이 드러남
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository()); //저장소 역할이 잘 보이지 않음.
     }
 
     @Bean
     public MemberRepository memberRepository() {// MemberRepository 역할이 드러남
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository(); //다른 저장소가 필요한 경우, 이 코드만 바꾸면 된다.
     }
 
     @Bean
     public OrderService orderService() {// OrderService 역할이 드러남
+        System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
