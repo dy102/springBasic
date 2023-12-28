@@ -13,15 +13,16 @@ class StatefulServiceTest {
     void statefulServiceSingleton() {
         ApplicationContext ac = new
                 AnnotationConfigApplicationContext(TestConfig.class);
-        StatefulService statefulService1 = ac.getBean("statefulService",
-                StatefulService.class);
-        StatefulService statefulService2 = ac.getBean("statefulService",
-                StatefulService.class);
+        StatefulService statefulService1 = ac.getBean("statefulService", StatefulService.class);
+        StatefulService statefulService2 = ac.getBean("statefulService", StatefulService.class);
 
         //ThreadA: A사용자 10000원 주문 statefulService1.order("userA", 10000); //ThreadB: B사용자 20000원 주문 statefulService2.order("userB", 20000);
+        statefulService1.order("userA", 10000);
+        statefulService2.order("userB", 20000);
+
         //ThreadA: 사용자A 주문 금액 조회
-        int price = statefulService1.getPrice();
-        
+        //int price = statefulService1.getPrice(); -> StatefulService 내에서 필드를 사용하지 말고 값을 리턴하게 해서 꺼내서 저장한다.
+
         //ThreadA: 사용자A는 10000원을 기대했지만, 기대와 다르게 20000원 출력 System.out.println("price = " + price);
         assertThat(statefulService1.getPrice()).isEqualTo(20000);
     }
