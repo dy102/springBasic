@@ -29,4 +29,14 @@ public class OrderServiceTest {
         Order order = orderService.createOrder(memberId, "itemA", 10000);
         Assertions.assertThat(order.getDiscountPrice()).isEqualTo(1000);
     }
+
+//    @Test
+//    void fieldInjectionTest() {
+//        Long memberId = 1L; //primitive type은 null값을 넣을 수 없으므로 Wrapper type 사용
+//        Member member = new Member(memberId, "memberA", Grade.VIP);
+//        memberService.join(member);
+//
+//        OrderServiceImpl orderService = new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
+//        orderService.createOrder(1L, "itemA", 10000);
+//    }
 }
